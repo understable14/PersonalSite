@@ -14,6 +14,8 @@ import Footer from './components/Footer';
 
 function App() {
 
+  const host = "http://141.147.118.36:5000";
+
   const [showNav, setShowNav] = useState(false);
 
   const [showAuth, setShowAuth] = useState(false);
@@ -28,7 +30,7 @@ function App() {
     if(authType === "Log In")
     {
       console.log("LOGGIN IN USER: " + username);
-      fetch("/api/user/login", 
+      fetch(`${host}/api/user/login`, 
       {
         method: 'POST', 
         body: JSON.stringify({username: username, password: password}),
@@ -56,7 +58,7 @@ function App() {
     else
     {
       console.log("REGISTERING USER : " + username);
-      fetch("/api/user", 
+      fetch(`${host}/api/user`, 
       {
         method: 'POST',
         body: JSON.stringify({username: username, password: password}),
@@ -116,7 +118,7 @@ function App() {
         <Route path='/community' exact element={
           (
             <>
-              <RandomPage authSession = {authSession} username={username} language={language}/>
+              <RandomPage authSession = {authSession} username={username} language={language} host={host}/>
             </>
           )}
         />

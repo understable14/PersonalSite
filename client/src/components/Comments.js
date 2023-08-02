@@ -3,7 +3,7 @@ import AddComment from './AddComment';
 import closeButton from '../assets/closeButton.png'
 
 
-const Comments = ({authSession, username, language}) => {
+const Comments = ({authSession, username, language, host}) => {
 
     const [comments, setComments] = useState([]);
 
@@ -11,7 +11,7 @@ const Comments = ({authSession, username, language}) => {
 
     useEffect(() => 
     {
-      fetch('/api/comments')
+      fetch(`${host}/api/comments`)
         .then((res) => res.json())
         .then((res) => 
         {
@@ -30,8 +30,8 @@ const Comments = ({authSession, username, language}) => {
 
     const deleteComment = ((id) => 
     {
-      console.log(`/api/comment/${id}`);
-      fetch(`/api/comment/${id}`, {method: 'DELETE'})
+      console.log(`${host}/api/comment/${id}`);
+      fetch(`${host}/api/comment/${id}`, {method: 'DELETE'})
         .then((res) => res.json())
         .then((res) => 
         {
@@ -45,7 +45,7 @@ const Comments = ({authSession, username, language}) => {
     const addComment = ((author, text) => 
     {
       console.log("TRYING TO ADD THE COMMENT: " + JSON.stringify({author: author, text: text}));
-      fetch("/api/comment", 
+      fetch(`${host}/api/comment`, 
       {
         method: 'POST',
         body: JSON.stringify({author: author, text: text}),
