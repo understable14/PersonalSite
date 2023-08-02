@@ -1,6 +1,7 @@
 const express = require('express');
 
 const http = require('http');
+const https = require('https');
 const path = require('path');
 const fs = require('fs');
 const uuid = require('uuid');
@@ -12,12 +13,12 @@ const logger = require('./middleware/Logger');
 
 const server = express();
 
-server.use(logger);
-
 // Body parser Middleware
 server.use(express.json());
 server.use(express.urlencoded({extended: false}));
 
+
+server.use(logger);
 require('dotenv').config({path: path.resolve(__dirname, '.', '.env')});
 console.log(process.env.DB_USER);
 
@@ -300,7 +301,15 @@ server.post('/api/user/login', async(req, res) =>
     })
 })
 
-const PORT = process.env.PORT;
+const PORT = 8443;
 
-server.listen(PORT, () => console.log('Server running...'))
+var key = fs.readFileSync(__dirname + '/certs/selfsigned.key', 'utf8');
+var cert = fs.readFileSync(__dirname + '/certs/selfsigned.crt', 'utf8');
+var options = {
+  key: key,
+  cert: cert
+};
+const httpsServer = https.createServer(options, server);
+
+httpsServer.listen(PORT, () => console.log('Server running on https on port ' + PORT))
 
