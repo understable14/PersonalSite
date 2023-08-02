@@ -8,6 +8,7 @@ const uuid = require('uuid');
 const moment = require('moment');
 const bcrypt = require('bcrypt');
 const mysql = require('mysql');
+const cors = require('cors');
 
 const logger = require('./middleware/Logger');
 
@@ -16,6 +17,7 @@ const server = express();
 // Body parser Middleware
 server.use(express.json());
 server.use(express.urlencoded({extended: false}));
+server.use(cors());
 
 
 server.use(logger);
