@@ -15,7 +15,7 @@ import Footer from './components/Footer';
 function App() {
 
   //wtf is going on if this works lmao
-  const host = "https://141.147.118.36:8443";
+
 
   const [showNav, setShowNav] = useState(false);
 
