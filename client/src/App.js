@@ -16,6 +16,8 @@ function App() {
 
   //wtf is going on if this works lmao
   const host = "https://141.147.118.36:8443";
+  console.log(host);
+  const randomThing = 2 + 2;
 
   const [showNav, setShowNav] = useState(false);
 
